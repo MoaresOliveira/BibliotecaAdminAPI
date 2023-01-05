@@ -63,14 +63,14 @@ public class FuncionarioController {
 
     @Operation(summary = "Contar Funcionario por CEP")
     @GetMapping("/contar")
-    public ResponseEntity<List<RelatorioFuncionarioDTO>> getFuncionarios() {
-        List<RelatorioFuncionarioDTO> relatorioFuncionarioDTOS = funcionarioService.contarFuncionariosPorCep();
+    public ResponseEntity<RelatorioFuncionarioDTO> getFuncionarios() {
+        RelatorioFuncionarioDTO relatorioFuncionarioDTO = funcionarioService.contarFuncionariosPorCep();
 
-        if(relatorioFuncionarioDTOS.isEmpty()){
+        if(relatorioFuncionarioDTO == null){
             return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.ok(relatorioFuncionarioDTOS);
+        return ResponseEntity.ok(relatorioFuncionarioDTO);
     }
 
 }

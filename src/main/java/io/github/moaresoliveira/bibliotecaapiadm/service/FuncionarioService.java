@@ -81,7 +81,7 @@ public class FuncionarioService {
         return toDto(entities);
     }
 
-    public List<RelatorioFuncionarioDTO> contarFuncionariosPorCep() {
+    public RelatorioFuncionarioDTO contarFuncionariosPorCep() {
         List<String> cepList = enderecoService.listarTodosCep();
         List<RelatorioFuncionarioDTO> funcionariosPorCep = new ArrayList<>();
 
@@ -97,7 +97,9 @@ public class FuncionarioService {
             funcionariosPorCep.add(relatorio);
         });
 
-        return funcionariosPorCep;
+        funcionariosPorCep.sort((o1, o2) -> o2.getQuantidadeFuncionarios().compareTo(o1.getQuantidadeFuncionarios()));
+
+        return funcionariosPorCep.get(0);
     }
 
     private FuncionarioEntity toEntity(FuncionarioDTO dto) {
