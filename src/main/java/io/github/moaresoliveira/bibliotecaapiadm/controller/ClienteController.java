@@ -3,7 +3,11 @@ package io.github.moaresoliveira.bibliotecaapiadm.controller;
 import io.github.moaresoliveira.bibliotecaapiadm.dto.ClienteDTO;
 import io.github.moaresoliveira.bibliotecaapiadm.service.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -23,14 +27,25 @@ public class ClienteController {
 
     @Operation(summary = "Cadastrar Cliente")
     @PostMapping("/cadastrar")
-    public ResponseEntity<ClienteDTO> cadastrar(@RequestBody ClienteDTO dto) {
+    public ResponseEntity<ClienteDTO> cadastrar(
+            @RequestBody(description = "Dados do Cliente",
+                    required = true,
+                    content = @Content(schema =
+                    @Schema(implementation = ClienteDTO.class))) ClienteDTO dto) {
+
         ClienteDTO clienteSalvo = clienteService.cadastrar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
     }
 
     @Operation(summary = "Atualizar Cliente")
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<ClienteDTO> atualizar(@PathVariable Long id, @RequestBody ClienteDTO dto) {
+    public ResponseEntity<ClienteDTO> atualizar(
+            @PathVariable Long id,
+            @RequestBody(description = "Dados do Cliente",
+                    required = true,
+                    content = @Content(schema =
+                    @Schema(implementation = ClienteDTO.class))) ClienteDTO dto) {
+
         ClienteDTO clienteAtualizado = clienteService.atualizar(id, dto);
         return ResponseEntity.accepted().body(clienteAtualizado);
     }
@@ -38,6 +53,7 @@ public class ClienteController {
     @Operation(summary = "Deletar Cliente")
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
+
         clienteService.deletar(id);
         return ResponseEntity.noContent().build();
     }
@@ -45,7 +61,8 @@ public class ClienteController {
 
     @Operation(summary = "Listar Clientes")
     @GetMapping("/listar")
-    public ResponseEntity<Page<ClienteDTO>> listarTodos(Pageable pageable) {
+    public ResponseEntity<Page<ClienteDTO>> listarTodos(@RequestParam @ParameterObject Pageable pageable) {
+
         Page<ClienteDTO> clienteListado = clienteService.listarTodos(pageable);
         if (clienteListado.hasContent()) {
             return ResponseEntity.ok(clienteListado);
