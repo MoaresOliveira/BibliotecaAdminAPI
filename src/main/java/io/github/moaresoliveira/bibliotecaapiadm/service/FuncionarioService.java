@@ -66,19 +66,9 @@ public class FuncionarioService {
         funcionarioRepository.delete(entity);
     }
 
-    public Page<FuncionarioDTO> listarTodos(int page, int size, String sortBy, String direction) {
-        Sort sort = Sort.by(sortBy).ascending();
-        if(direction.equalsIgnoreCase("desc")) {
-            sort = Sort.by(sortBy).descending();
-        }
-        Pageable pageable = PageRequest.of(page, size, sort);
+    public Page<FuncionarioDTO> listarTodos(Pageable pageable) {
         Page<FuncionarioEntity> entities = funcionarioRepository.findAll(pageable);
         return entities.map(this::toDto);
-    }
-
-    public List<FuncionarioDTO> listarTodosPorCep(String cep) {
-        List<FuncionarioEntity> entities = funcionarioRepository.findAllByEnderecoCep(cep);
-        return toDto(entities);
     }
 
     public RelatorioFuncionarioDTO contarFuncionariosPorCep() {
@@ -107,10 +97,6 @@ public class FuncionarioService {
     }
 
     private FuncionarioDTO toDto(FuncionarioEntity entity) {
-        return funcionarioMapper.entityToDto(entity);
-    }
-
-    private List<FuncionarioDTO> toDto(List<FuncionarioEntity> entity) {
         return funcionarioMapper.entityToDto(entity);
     }
 

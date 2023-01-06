@@ -7,9 +7,7 @@ import io.github.moaresoliveira.bibliotecaapiadm.exception.ClienteNotFoundExcept
 import io.github.moaresoliveira.bibliotecaapiadm.mapper.ClienteMapper;
 import io.github.moaresoliveira.bibliotecaapiadm.repository.ClienteRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,7 +23,6 @@ public class ClienteService {
         this.clienteMapper = ClienteMapper.INSTANCE;
     }
 
-    // Cadastrar
     public ClienteDTO cadastrar(ClienteDTO dto) {
         ClienteEntity entity = toEntity(dto);
         EnderecoEntity endereco = enderecoService.cadastrar(dto.getEndereco());
@@ -34,7 +31,6 @@ public class ClienteService {
         return toDto(clienteSalvo);
     }
 
-    // Atualizar
     public ClienteDTO atualizar(Long id, ClienteDTO dto) {
         ClienteEntity entity = clienteRepository.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
         entity.setNome(dto.getNome());
@@ -54,13 +50,7 @@ public class ClienteService {
         clienteRepository.delete(entity);
     }
 
-    // Listar Cliente
-    public Page<ClienteDTO> listarTodos(int page, int size, String sortBy, String direction) {
-        Sort sort = Sort.by(sortBy).ascending();
-        if(direction.equalsIgnoreCase("desc")) {
-            sort = Sort.by(sortBy).descending();
-        }
-        Pageable pageable = PageRequest.of(page, size, sort);
+    public Page<ClienteDTO> listarTodos(Pageable pageable) {
         Page<ClienteEntity> entities = clienteRepository.findAll(pageable);
         return entities.map(this::toDto);
     }

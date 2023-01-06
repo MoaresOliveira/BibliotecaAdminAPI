@@ -53,8 +53,4 @@ public class EnderecoService {
         return enderecoMapper.dtoToEntity(dto);
     }
 
-    private EnderecoDTO toDto(EnderecoEntity entity) {
-        return enderecoMapper.entityToDto(entity);
-    }
-
 }

@@ -13,8 +13,6 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, 
 
     Page<FuncionarioEntity> findAll(Pageable pageable);
 
-    List<FuncionarioEntity> findAllByEnderecoCep(String cep);
-
     Integer countAllByEnderecoCep(String cep);
 
 }
