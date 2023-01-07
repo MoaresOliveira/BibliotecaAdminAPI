@@ -8,11 +8,11 @@
         <version>2.7.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>io.github.moaresoliveira</groupId>
-    <artifactId>biblioteca-api-adm</artifactId>
+    <groupId>com.github.moaresoliveira</groupId>
+    <artifactId>biblioteca-admin-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>biblioteca-api-adm</name>
-    <description>biblioteca-api-adm</description>
+    <name>biblioteca-admin-api</name>
+    <description>biblioteca-admin-api</description>
     <properties>
         <java.version>1.8</java.version>
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
