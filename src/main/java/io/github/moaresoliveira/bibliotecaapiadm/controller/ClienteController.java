@@ -28,6 +28,7 @@ public class ClienteController {
     @Operation(summary = "Cadastrar Cliente")
     @PostMapping("/cadastrar")
     public ResponseEntity<ClienteDTO> cadastrar(
+            @org.springframework.web.bind.annotation.RequestBody
             @RequestBody(description = "Dados do Cliente",
                     required = true,
                     content = @Content(schema =
@@ -41,6 +42,7 @@ public class ClienteController {
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<ClienteDTO> atualizar(
             @PathVariable Long id,
+            @org.springframework.web.bind.annotation.RequestBody
             @RequestBody(description = "Dados do Cliente",
                     required = true,
                     content = @Content(schema =
@@ -61,11 +63,11 @@ public class ClienteController {
 
     @Operation(summary = "Listar Clientes")
     @GetMapping("/listar")
-    public ResponseEntity<Page<ClienteDTO>> listarTodos(@RequestParam @ParameterObject Pageable pageable) {
+    public ResponseEntity<Page<ClienteDTO>> listarTodos(@ParameterObject Pageable pageable) {
 
-        Page<ClienteDTO> clienteListado = clienteService.listarTodos(pageable);
-        if (clienteListado.hasContent()) {
-            return ResponseEntity.ok(clienteListado);
+        Page<ClienteDTO> clientesListados = clienteService.listarTodos(pageable);
+        if (clientesListados.hasContent()) {
+            return ResponseEntity.ok(clientesListados);
         }
         return ResponseEntity.noContent().build();
     }

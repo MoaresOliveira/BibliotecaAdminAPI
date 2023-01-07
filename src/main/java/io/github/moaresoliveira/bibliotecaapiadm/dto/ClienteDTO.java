@@ -18,9 +18,7 @@ public class ClienteDTO {
     @Schema(name = "documento", example = "123.456.789-00")
     private String documento;
 
-    @Schema(name = "telefone", subTypes = {
-            EnderecoDTO.class
-    })
+    @Schema(name = "endereco")
     private EnderecoDTO endereco;
 
 }

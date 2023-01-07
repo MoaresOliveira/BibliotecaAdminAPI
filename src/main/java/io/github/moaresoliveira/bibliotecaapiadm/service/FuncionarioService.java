@@ -9,9 +9,7 @@ import io.github.moaresoliveira.bibliotecaapiadm.exception.FuncionarioNotFoundEx
 import io.github.moaresoliveira.bibliotecaapiadm.mapper.FuncionarioMapper;
 import io.github.moaresoliveira.bibliotecaapiadm.repository.FuncionarioRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

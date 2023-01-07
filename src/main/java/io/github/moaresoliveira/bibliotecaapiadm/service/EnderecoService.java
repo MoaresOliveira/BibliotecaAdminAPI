@@ -24,7 +24,7 @@ public class EnderecoService {
 
     public EnderecoEntity cadastrar(EnderecoDTO form) {
         EnderecoEntity endereco = buscarEnderecoUnico(form);
-        if(endereco == null) {
+        if (endereco == null) {
             EnderecoDTO enderecoEncontrado = viaCepService.buscarEnderecoPorCep(form.getCep());
             enderecoEncontrado.setComplemento(form.getComplemento());
             enderecoEncontrado.setNumero(form.getNumero());
@@ -38,7 +38,7 @@ public class EnderecoService {
         return enderecoRepository.findAllDistinctCep();
     }
 
-    public EnderecoEntity buscarEnderecoUnico(EnderecoDTO form){
+    public EnderecoEntity buscarEnderecoUnico(EnderecoDTO form) {
         Optional<EnderecoEntity> endereco = enderecoRepository
                 .findByCepAndComplementoAndNumero(form.getCep(), form.getComplemento(), form.getNumero());
 

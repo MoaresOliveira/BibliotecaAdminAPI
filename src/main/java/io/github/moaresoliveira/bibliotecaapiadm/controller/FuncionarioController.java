@@ -29,6 +29,7 @@ public class FuncionarioController {
     @Operation(summary = "Cadastrar Funcionario")
     @PostMapping("/cadastrar")
     public ResponseEntity<FuncionarioDTO> cadastrar(
+            @org.springframework.web.bind.annotation.RequestBody
             @RequestBody(description = "Dados do Funcionário",
                     required = true,
                     content = @Content(schema =
@@ -42,6 +43,7 @@ public class FuncionarioController {
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<FuncionarioDTO> atualizar(
             @PathVariable Long id,
+            @org.springframework.web.bind.annotation.RequestBody
             @RequestBody(description = "Dados do Funcionário",
                     required = true,
                     content = @Content(schema =
@@ -61,11 +63,11 @@ public class FuncionarioController {
 
     @Operation(summary = "Listar Funcionarios")
     @GetMapping("/listar")
-    public ResponseEntity<Page<FuncionarioDTO>> listarTodos(@RequestParam @ParameterObject Pageable pageable) {
+    public ResponseEntity<Page<FuncionarioDTO>> listarTodos(@ParameterObject Pageable pageable) {
 
-        Page<FuncionarioDTO> clienteListado = funcionarioService.listarTodos(pageable);
-        if (clienteListado.hasContent()) {
-            return ResponseEntity.ok(clienteListado);
+        Page<FuncionarioDTO> funcionariosListados = funcionarioService.listarTodos(pageable);
+        if (funcionariosListados.hasContent()) {
+            return ResponseEntity.ok(funcionariosListados);
         }
         return ResponseEntity.noContent().build();
     }
@@ -76,7 +78,7 @@ public class FuncionarioController {
 
         RelatorioFuncionarioDTO relatorioFuncionarioDTO = funcionarioService.contarFuncionariosPorCep();
 
-        if(relatorioFuncionarioDTO == null){
+        if (relatorioFuncionarioDTO == null) {
             return ResponseEntity.noContent().build();
         }
 
