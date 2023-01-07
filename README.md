@@ -25,7 +25,7 @@ Esta aplicação possui 5 variáveis de ambiente relacionado a conexão com banc
 
 As variáveis devem ser definidas de acordo com o ambiente para o funcionamento correto da aplicação.
 
-Após executada a aplicação ela rodará por padrão na porta 8080. 
+Após executada a aplicação ela rodará por padrão na porta `8080`. 
 
 ### Então poderá ter acesso ao Swagger da aplicação através da url:
 
