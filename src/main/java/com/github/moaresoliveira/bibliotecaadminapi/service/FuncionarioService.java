@@ -40,18 +40,13 @@ public class FuncionarioService {
     public FuncionarioDTO atualizar(Long id, FuncionarioDTO dto) {
         FuncionarioEntity entity =
                 funcionarioRepository.findById(id)
-                        .orElseThrow(() -> new FuncionarioNotFoundException(id));
+                    .orElseThrow(() -> new FuncionarioNotFoundException(id));
 
         entity.setNome(dto.getNome());
         entity.setDocumento(dto.getDocumento());
-        EnderecoEntity enderecoUnico = enderecoService.buscarEnderecoUnico(dto.getEndereco());
 
-        if (enderecoUnico == null) {
-            EnderecoEntity endereco = enderecoService.cadastrar(dto.getEndereco());
-            entity.setEndereco(endereco);
-        } else {
-            entity.setEndereco(enderecoUnico);
-        }
+        EnderecoEntity endereco = enderecoService.cadastrar(dto.getEndereco());
+        entity.setEndereco(endereco);
 
         FuncionarioEntity funcionario = funcionarioRepository.save(entity);
         return toDto(funcionario);

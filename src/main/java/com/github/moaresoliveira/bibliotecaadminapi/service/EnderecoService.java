@@ -25,8 +25,17 @@ public class EnderecoService {
     public EnderecoEntity cadastrar(EnderecoDTO form) {
         EnderecoEntity endereco = buscarEnderecoUnico(form);
         if (endereco == null) {
-            EnderecoDTO enderecoEncontrado = viaCepService.buscarEnderecoPorCep(form.getCep());
-            enderecoEncontrado.setComplemento(form.getComplemento());
+            EnderecoDTO enderecoEncontrado = buscarEnderecoPorCep(form.getCep());
+            String complemento = enderecoEncontrado.getComplemento().trim();
+
+            if (complemento.equalsIgnoreCase(form.getComplemento())) {
+                enderecoEncontrado.setComplemento(complemento);
+            } else if(complemento.isEmpty()) {
+                enderecoEncontrado.setComplemento(form.getComplemento());
+            } else {
+                enderecoEncontrado.setComplemento(complemento + " | " + form.getComplemento());
+            }
+
             enderecoEncontrado.setNumero(form.getNumero());
             endereco = toEntity(enderecoEncontrado);
             return enderecoRepository.save(endereco);
