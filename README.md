@@ -21,7 +21,7 @@ Esta aplicação possui 5 variáveis de ambiente relacionado a conexão com banc
 2. **MYSQL_PORT** (valor padrão: 3306)
 3. **MYSQL_DATABASE** (valor padrão: biblioteca)
 4. **MYSQL_USER** (valor padrão: root)
-5. **MYSQL_USER_PASSWORD** (sem valor padrão)
+5. **MYSQL_PASSWORD** (sem valor padrão)
 
 As variáveis devem ser definidas de acordo com o ambiente para o funcionamento correto da aplicação.
 
